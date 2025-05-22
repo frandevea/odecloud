@@ -62,14 +62,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       'expo-splash-screen',
       {
         backgroundColor: '#2E3C4B',
-        image: './assets/splash-icon.png',
-        imageWidth: 150,
       },
     ],
     [
       'expo-font',
       {
-        fonts: ['./assets/fonts/ApfelGrotezk.otf'],
+        fonts: ['./assets/fonts/ApfelGrotezk.ttf'],
       },
     ],
     'expo-localization',
