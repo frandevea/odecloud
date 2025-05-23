@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, Animated } from 'react-native';
+import { View, Text, ActivityIndicator, Animated } from 'react-native';
 
 interface SplashScreenProps {
   onFinish: (isCancelled: boolean) => void;
 }
 
 const texts = [
-  'Cargando recursos...',
-  'Preparando la interfaz...',
-  'Casi listo...',
-  '¡Bienvenido!',
+  'Getting your workspace ready...',
+  'Heating up notifications...',
+  'Whispering to the servers...',
+  'Taming the backlog dragons...',
 ];
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
@@ -32,61 +32,24 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
         }).start(() => {
           setCurrentTextIndex(currentTextIndex + 1);
         });
-      }, 2000); // Change text every 2 seconds + 0.5s fadeOut
+      }, 1500); // Change text every 2 seconds + 0.5s fadeOut
       return () => clearTimeout(timer);
     } else {
       const finishTimer = setTimeout(() => {
         onFinish(false);
-      }, 2500); // Show last text for 2.5s then finish
+      }, 2000); // Show last text for 2.5s then finish
       return () => clearTimeout(finishTimer);
     }
   }, [currentTextIndex, fadeAnim, onFinish]);
 
-  // Fallback for Animated if not available (e.g. web)
-  // This simple version does not have animations.
-  // For animations on web, you'd typically use CSS transitions or a web animation library.
-  /*
-  useEffect(() => {
-    if (currentTextIndex < texts.length - 1) {
-      const timer = setTimeout(() => {
-        setCurrentTextIndex(currentTextIndex + 1);
-      }, 1500); // Change text every 1.5 seconds
-      return () => clearTimeout(timer);
-    } else {
-      const finishTimer = setTimeout(() => {
-        onFinish(false);
-      }, 1500); // Show last text for 1.5s then finish
-      return () => clearTimeout(finishTimer);
-    }
-  }, [currentTextIndex, onFinish]);
-  */
-
   return (
-    <View style={styles.container}>
-      <ActivityIndicator size="large" color="#0000ff" />
+    <View className="items-center justify-end flex-1 pb-12 bg-white font-Poppins_Regular">
+      <ActivityIndicator />
       <Animated.View style={{ opacity: fadeAnim }}>
-        <Text style={styles.text}>{texts[currentTextIndex]}</Text>
+        <Text className="mt-5 text-lg text-gray-800 ">{texts[currentTextIndex]}</Text>
       </Animated.View>
-      {/* Fallback text display if Animated is not used:
-      <Text style={styles.text}>{texts[currentTextIndex]}</Text>
-      */}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-  },
-  text: {
-    marginTop: 20,
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333333',
-  },
-});
 
 export default SplashScreen;
