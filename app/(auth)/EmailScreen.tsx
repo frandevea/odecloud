@@ -18,7 +18,7 @@ export default function EmailScreen() {
         {/* Eliminado padding superior para compensar el nuevo View */}
         {/* Sección Principal del Formulario */}
         <View>
-          <Text className="mb-4 text-5xl">👋</Text>
+          <Text className="py-4 text-5xl">👋</Text>
           <Text className="mb-8 text-3xl font-bold text-black">Sign in</Text>
 
           <View className="mb-6">
