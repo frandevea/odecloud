@@ -70,10 +70,10 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
       <Animated.View
         style={{ opacity: screenOverallOpacityAnim }}
         className="items-center justify-end w-full">
-        <ImageBackground
+        <Image
           source={require('../assets/images/bg_splash.png')}
           resizeMode="cover"
-          className="w-full h-full "
+          className="w-full h-full"
         />
         <ActivityIndicator />
         <Animated.View style={{ opacity: fadeAnim }} className="pb-12">
