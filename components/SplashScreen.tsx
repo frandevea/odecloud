@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ActivityIndicator, Animated } from 'react-native';
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  Animated,
+  ImageBackground,
+  Image,
+  SafeAreaView,
+} from 'react-native';
 
 interface SplashScreenProps {
   onFinish: (isCancelled: boolean) => void;
@@ -43,12 +51,19 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
   }, [currentTextIndex, fadeAnim, onFinish]);
 
   return (
-    <View className="items-center justify-end flex-1 pb-12 bg-white font-Poppins_Regular">
+    <SafeAreaView className="items-center justify-end flex-1 bg-white font-Poppins_Regular">
+      <ImageBackground
+        source={require('../assets/images/bg_splash.png')}
+        resizeMode="cover"
+        className="absolute flex items-center justify-start w-full h-full pt-64 top-12">
+        <Image source={require('../assets/images/logo.png')} />
+        <Text className="text-4xl font-medium text-white font-Poppins_Medium">OdeCloud</Text>
+      </ImageBackground>
       <ActivityIndicator />
-      <Animated.View style={{ opacity: fadeAnim }}>
+      <Animated.View style={{ opacity: fadeAnim }} className="pb-12">
         <Text className="mt-5 text-lg text-gray-800 ">{texts[currentTextIndex]}</Text>
       </Animated.View>
-    </View>
+    </SafeAreaView>
   );
 };
 

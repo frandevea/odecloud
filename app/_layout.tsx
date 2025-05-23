@@ -1,6 +1,7 @@
 import { ScreenContent } from 'components/ScreenContent';
 import { StatusBar } from 'expo-status-bar';
 import SplashScreen from 'components/SplashScreen';
+import EmailScreen from 'app/(auth)/EmailScreen';
 
 import '../global.css';
 import { useState } from 'react';
@@ -14,7 +15,7 @@ export default function RootLayout() {
   }
   return (
     <>
-      <ScreenContent title="Home" path="App.tsx"></ScreenContent>
+      <EmailScreen />
       <StatusBar style="auto" />
     </>
   );
