@@ -3,19 +3,17 @@ import * as SecureStore from 'expo-secure-store';
 import { authStore } from '../stores/authStore';
 
 export async function login({ email, password }: { email: string; password: string }) {
-  const res = await api.post('/login', {
+  const res = await api.post('/login/', {
     email,
     password,
-    appurl: 'https://feed-alpha.odecloud.com',
+    appUrl: 'https://feed-alpha.odecloud.com',
   });
-
-  const token = res.headers['X-Auth-Token'];
-  const userId = res.headers['X-User-Id'];
-
+  const data = res.data;
+  const token = data.authToken;
+  const userId = data.userId;
   if (!token || !userId) {
     throw new Error('Token o User ID no encontrados en la respuesta');
   }
-
   await SecureStore.setItemAsync('token', token);
   await SecureStore.setItemAsync('userId', userId);
   authStore.set({ token, userId });
