@@ -9,6 +9,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        action: 'bg-black web:hover:opacity-90 active:opacity-90',
         default: 'bg-primary web:hover:opacity-90 active:opacity-90',
         destructive: 'bg-destructive web:hover:opacity-90 active:opacity-90',
         outline:
@@ -36,6 +37,7 @@ const buttonTextVariants = cva(
   {
     variants: {
       variant: {
+        action: 'text-white',
         default: 'text-primary-foreground',
         destructive: 'text-destructive-foreground',
         outline: 'group-active:text-accent-foreground',
@@ -62,15 +64,14 @@ type ButtonProps = React.ComponentProps<typeof Pressable> & VariantProps<typeof 
 function Button({ ref, className, variant, size, ...props }: ButtonProps) {
   return (
     <TextClassContext.Provider
-      value={buttonTextVariants({ variant, size, className: 'web:pointer-events-none' })}
-    >
+      value={buttonTextVariants({ variant, size, className: 'web:pointer-events-none' })}>
       <Pressable
         className={cn(
           props.disabled && 'opacity-50 web:pointer-events-none',
           buttonVariants({ variant, size, className })
         )}
         ref={ref}
-        role='button'
+        role="button"
         {...props}
       />
     </TextClassContext.Provider>
