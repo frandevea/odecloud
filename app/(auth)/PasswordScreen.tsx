@@ -13,6 +13,7 @@ import { z } from 'zod';
 import { useAuth } from '../../hooks/useAuth';
 import { PasswordInput } from '../../components/form/PasswordInput';
 import { PrimaryButton } from '../../components/PrimaryButton';
+import { navigateAfterLogin } from '@/lib/auth';
 
 const passwordSchema = z.object({
   password: z.string().min(4, 'Password is too short'),
@@ -38,7 +39,7 @@ export default function PasswordScreen() {
 
     try {
       await login(email, password);
-      router.replace('/(tabs)/Chat');
+      await navigateAfterLogin();
     } catch (err: any) {
       const message = err?.response?.data?.message || 'Login failed';
       Alert.alert('Login Error', message);

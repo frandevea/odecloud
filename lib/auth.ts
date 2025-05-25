@@ -1,6 +1,7 @@
 import api from './api';
 import * as SecureStore from 'expo-secure-store';
 import { authStore } from '../stores/authStore';
+import { router } from 'expo-router';
 
 export async function login({ email, password }: { email: string; password: string }) {
   const res = await api.post('/login/', {
@@ -33,4 +34,13 @@ export async function logout() {
   await SecureStore.deleteItemAsync('token');
   await SecureStore.deleteItemAsync('userId');
   authStore.set({ token: null, userId: null });
+}
+
+export async function navigateAfterLogin() {
+  const seenOnboarding = await SecureStore.getItemAsync('hasSeenOnboarding');
+  if (!seenOnboarding) {
+    router.replace('/(auth)/OnboardingScreen');
+  } else {
+    router.replace('/(tabs)/Chat');
+  }
 }
