@@ -13,7 +13,7 @@ export default function ChatEmptyState() {
   };
 
   return (
-    <View className="items-center justify-center flex-1 p-6">
+    <View className="items-center justify-center flex-1 p-6 pb-32">
       <View className="p-4 mb-4">
         <MessageSquareDashed size={48} className="text-primary" />
       </View>
