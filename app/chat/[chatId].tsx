@@ -117,7 +117,6 @@ export default function ChatScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-background">
-      {/* Header */}
       <View className="flex-row items-center gap-3 px-4 py-2 border-b border-border">
         <TouchableOpacity onPress={() => router.back()} className="p-2 -ml-2">
           <ArrowLeft className="text-foreground" size={24} />
@@ -131,7 +130,6 @@ export default function ChatScreen() {
         </View>
       </View>
 
-      {/* Messages */}
       <View className="flex-1">
         {messages.length > 0 ? (
           <FlatList
@@ -167,7 +165,6 @@ export default function ChatScreen() {
         )}
       </View>
 
-      {/* Input */}
       <View className="flex-row items-center gap-2 px-3 py-2 border-t border-border">
         <TouchableOpacity className="p-2">
           <Paperclip className="text-muted-foreground" size={22} />

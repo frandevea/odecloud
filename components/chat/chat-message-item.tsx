@@ -59,7 +59,6 @@ export function ChatMessageItem({ message, chat, messages }: Props) {
 
   return (
     <View className="mb-4 max-w-[90%]" style={{ alignSelf: isOwn ? 'flex-end' : 'flex-start' }}>
-      {/* Reply preview */}
       {replyTo && (
         <View className="flex-row items-center mb-1 gap-x-1">
           <Reply size={16} className="text-primary" />
@@ -97,7 +96,6 @@ export function ChatMessageItem({ message, chat, messages }: Props) {
         </View>
       </View>
 
-      {/* Reactions + timestamp/checks */}
       <View
         className={cn(
           'mt-2 flex-row flex-wrap items-center gap-2',
