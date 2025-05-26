@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { Chat } from '@/types/chat';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -45,4 +46,7 @@ export function getRelativeTimestamp(dateString: string): string {
     month: '2-digit',
     year: 'numeric',
   }).format(date); // e.g. "24/04/2023"
+}
+export function getUserProfileById(members: Chat['data']['members'], userId: string) {
+  return members.find((member) => member._id === userId);
 }
