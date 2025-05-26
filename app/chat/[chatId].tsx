@@ -17,6 +17,7 @@ import { ChatMessageItem } from '@/components/chat/chat-message-item';
 import { getChatMessages } from '@/hooks/useChatMessages';
 import { Chat, Message } from '@/types/chat';
 import { authStore } from '@/stores/authStore';
+import { GroupAvatar } from '@/components/group-avatar';
 
 export default function ChatScreen() {
   const { chatId } = useLocalSearchParams();
@@ -27,6 +28,62 @@ export default function ChatScreen() {
   const userId = authStore.get().userId;
   const allChats = queryClient.getQueryData<Chat[]>(['chats', userId]);
   const chat = allChats?.find((c) => c._id === chatId);
+  const members = chat?.data?.members ?? [];
+
+  const otherMembers = members.filter((m) => m._id !== userId);
+  const isGroup = members.length > 2;
+
+  const safeMembers = members.filter((m) => m.profile);
+
+  // Asegura que el usuario actual esté incluido aunque no venga en `members`
+  const hasCurrentUser = safeMembers.some((m) => m._id === userId);
+  if (!hasCurrentUser) {
+    safeMembers.push({
+      _id: userId!,
+      emails: [],
+      profile: {
+        firstName: 'You',
+        lastName: '',
+        avatar: undefined,
+      },
+    });
+  }
+
+  const avatars = safeMembers.map((m) => {
+    const first = m.profile?.firstName?.[0] ?? '';
+    const last = m.profile?.lastName?.[0] ?? '';
+    const initials = (first + last).toUpperCase();
+
+    const uri = m.profile?.avatar?.secureUrl;
+    return {
+      uri: uri && typeof uri === 'string' && uri.trim() !== '' ? uri : undefined,
+      initials,
+    };
+  });
+
+  const otherUser = otherMembers[0];
+  const otherFirstName = otherUser?.profile?.firstName ?? '';
+  const otherLastName = otherUser?.profile?.lastName ?? '';
+  const otherFullName = `${otherFirstName} ${otherLastName}`.trim();
+
+  const displayName = isGroup ? (chat?.title ?? 'Group') : otherFullName || 'Chat';
+
+  const displaySubtext = isGroup ? `${members.length} members` : 'Online';
+
+  const avatarElement = isGroup ? (
+    <GroupAvatar avatars={avatars} />
+  ) : otherUser?.profile?.avatar?.secureUrl ? (
+    <Image
+      source={{ uri: otherUser.profile.avatar.secureUrl }}
+      className="w-8 h-8 rounded-full bg-muted"
+    />
+  ) : (
+    <View className="items-center justify-center w-8 h-8 rounded-full bg-muted">
+      <Text className="text-xs font-semibold text-foreground">
+        {(otherFirstName[0] ?? '') + (otherLastName[0] ?? '')}
+      </Text>
+    </View>
+  );
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery<
     { data: Message[]; hasNextPage: boolean },
@@ -67,12 +124,10 @@ export default function ChatScreen() {
           <ArrowLeft className="text-foreground" size={24} />
         </TouchableOpacity>
         <View className="flex-row items-center flex-1 gap-2">
-          <View className="w-8 h-8 rounded-full bg-muted" />
+          {avatarElement}
           <View>
-            <Text className="font-medium text-foreground">
-              {chat?.data.members?.[0]?.profile?.firstName ?? 'Chat'}
-            </Text>
-            <Text className="text-xs text-muted-foreground">Online</Text>
+            <Text className="font-medium text-foreground">{displayName}</Text>
+            <Text className="text-xs text-muted-foreground">{displaySubtext}</Text>
           </View>
         </View>
       </View>
@@ -112,6 +167,7 @@ export default function ChatScreen() {
           </View>
         )}
       </View>
+
       {/* Input */}
       <View className="flex-row items-center gap-2 px-3 py-2 border-t border-border">
         <TouchableOpacity className="p-2">
