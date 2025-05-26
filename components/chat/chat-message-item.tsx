@@ -1,4 +1,4 @@
-import { View, useWindowDimensions } from 'react-native';
+import { View, useWindowDimensions, Image } from 'react-native';
 import RenderHTML from 'react-native-render-html';
 import { Message, Chat } from '@/types/chat';
 import { cn, getUserProfileById } from '@/lib/utils';
@@ -35,7 +35,6 @@ export function ChatMessageItem({ message, chat, messages }: Props) {
       : null;
 
   const avatarUrl = sender?.profile?.avatar?.secureUrl;
-
   const senderName =
     `${sender?.profile?.firstName ?? 'User'} ${sender?.profile?.lastName ?? ''}`.trim();
   const initials =
@@ -50,6 +49,12 @@ export function ChatMessageItem({ message, chat, messages }: Props) {
   ];
 
   const safeHtml = sanitizeHtml(message.text || '');
+  const hasText = !!safeHtml.trim();
+  const files = message?.data?.files || message?.files || [];
+
+  const firstImage = files.find((f) =>
+    f?.cloudinary?.secure_url?.match(/\.(jpeg|jpg|png|gif|webp)$/)
+  );
 
   return (
     <View className="mb-4 max-w-[90%]" style={{ alignSelf: isOwn ? 'flex-end' : 'flex-start' }}>
@@ -73,20 +78,30 @@ export function ChatMessageItem({ message, chat, messages }: Props) {
           </Avatar>
         )}
 
-        <View className={cn('rounded-xl px-4 py-2', isOwn ? 'bg-[#fddde6]' : 'bg-[#f3f3f3]')}>
-          <RenderHTML
-            contentWidth={width}
-            source={{ html: safeHtml }}
-            baseStyle={{
-              color: '#111',
-              fontSize: 15,
-              lineHeight: 20,
-            }}
-            tagsStyles={{
-              span: { color: '#3182ce', fontWeight: '600' },
-              a: { color: '#3182ce' },
-            }}
-          />
+        <View className={cn('rounded-xl px-4 py-4', isOwn ? 'bg-[#fddde6]' : 'bg-[#f3f3f3]')}>
+          {!!hasText && (
+            <RenderHTML
+              contentWidth={width}
+              source={{ html: safeHtml }}
+              baseStyle={{ color: '#111', fontSize: 15, lineHeight: 20 }}
+              tagsStyles={{
+                span: { color: '#3182ce', fontWeight: '600' },
+                a: { color: '#3182ce' },
+              }}
+            />
+          )}
+          {!!firstImage?.cloudinary?.secure_url && (
+            <Image
+              source={{ uri: firstImage.cloudinary.secure_url }}
+              style={{
+                width: 200,
+                height: 200,
+                borderRadius: 12,
+                marginTop: hasText ? 10 : 0,
+              }}
+              resizeMode="cover"
+            />
+          )}
         </View>
       </View>
 
