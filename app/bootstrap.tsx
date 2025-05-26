@@ -7,6 +7,7 @@ import SplashScreen from '@/components/SplashScreen';
 import { restoreSession } from '@/lib/auth';
 import { authStore } from '@/stores/authStore';
 import { fetchChats } from '@/hooks/useChats';
+import { fetchUserDetails } from '@/lib/api/user';
 
 export default function BootstrapScreen() {
   const [splashFinished, setSplashFinished] = useState(false);
@@ -24,6 +25,11 @@ export default function BootstrapScreen() {
 
       const { userId } = authStore.get();
       if (userId) {
+        await queryClient.prefetchQuery({
+          queryKey: ['userDetails', userId],
+          queryFn: () => fetchUserDetails(userId),
+          staleTime: 1000 * 60 * 5,
+        });
         await queryClient.prefetchQuery({
           queryKey: ['chats', userId],
           queryFn: () => fetchChats(userId),
