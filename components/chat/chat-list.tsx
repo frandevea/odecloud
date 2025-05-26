@@ -1,7 +1,7 @@
 import { FlatList } from 'react-native';
 import ChatListItem from './chat-list-item';
 import { Chat } from '@/types/chat';
-import ChatSearchInput from './chat-search-input'; // asegúrate de importar correctamente
+import ChatSearchInput from './chat-search-input';
 
 interface ChatListProps {
   chats: Chat[];

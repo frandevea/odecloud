@@ -11,7 +11,6 @@ export function useAuth() {
   const auth = useStore(authStore);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Restaurar sesión solo al montar el hook
   useEffect(() => {
     const restore = async () => {
       await restoreSessionFn();

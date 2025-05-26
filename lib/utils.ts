@@ -31,21 +31,21 @@ export function getRelativeTimestamp(dateString: string): string {
   }
 
   if (diffDays <= 6) {
-    return new Intl.DateTimeFormat(undefined, { weekday: 'long' }).format(date); // e.g. "Saturday"
+    return new Intl.DateTimeFormat(undefined, { weekday: 'long' }).format(date);
   }
 
   if (isSameYear) {
     return new Intl.DateTimeFormat(undefined, {
       day: '2-digit',
       month: '2-digit',
-    }).format(date); // e.g. "24/04"
+    }).format(date);
   }
 
   return new Intl.DateTimeFormat(undefined, {
     day: '2-digit',
     month: '2-digit',
     year: 'numeric',
-  }).format(date); // e.g. "24/04/2023"
+  }).format(date);
 }
 export function getUserProfileById(members: Chat['data']['members'], userId: string) {
   return members.find((member) => member._id === userId);

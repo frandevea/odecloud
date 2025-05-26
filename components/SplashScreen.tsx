@@ -14,11 +14,10 @@ const texts = [
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const [fadeAnim] = useState(new Animated.Value(0)); // For text fade in/out
-  const [screenOverallOpacityAnim] = useState(new Animated.Value(1)); // For overall screen fade out
+  const [fadeAnim] = useState(new Animated.Value(0));
+  const [screenOverallOpacityAnim] = useState(new Animated.Value(1));
 
   useEffect(() => {
-    // Fade in current text
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 1000,
@@ -27,30 +26,26 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
 
     if (currentTextIndex < texts.length - 1) {
       const timer = setTimeout(() => {
-        // Fade out current text
         Animated.timing(fadeAnim, {
           toValue: 0,
           duration: 500,
           useNativeDriver: true,
         }).start(() => {
           setCurrentTextIndex(currentTextIndex + 1);
-          // Next text will fade in due to useEffect re-triggering
         });
-      }, 1500); // Duration text is visible + fade out duration for current text
+      }, 1500);
       return () => clearTimeout(timer);
     } else {
-      // Last text is visible
-      const lastTextVisibilityDuration = 1500; // How long the last text stays fully visible
-      const screenFadeOutDuration = 500; // How long the entire screen fade-out takes
+      const lastTextVisibilityDuration = 1500;
+      const screenFadeOutDuration = 500;
 
       const finishTimer = setTimeout(() => {
-        // Start fading out the entire screen content
         Animated.timing(screenOverallOpacityAnim, {
           toValue: 0,
           duration: screenFadeOutDuration,
           useNativeDriver: true,
         }).start(() => {
-          onFinish(false); // Call onFinish after the screen has faded out
+          onFinish(false);
         });
       }, lastTextVisibilityDuration);
       return () => clearTimeout(finishTimer);

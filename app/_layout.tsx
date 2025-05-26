@@ -18,10 +18,7 @@ const DARK_THEME: Theme = {
   colors: NAV_THEME.dark,
 };
 
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router';
+export { ErrorBoundary } from 'expo-router';
 
 export default function RootLayout() {
   const [queryClient] = useState(() => new QueryClient());
@@ -35,7 +32,6 @@ export default function RootLayout() {
     }
 
     if (Platform.OS === 'web') {
-      // Adds the background color to the html element to prevent white background on overscroll.
       document.documentElement.classList.add('bg-background');
     }
     setIsColorSchemeLoaded(true);

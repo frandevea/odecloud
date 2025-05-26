@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react-native'; // O desde '@/lib/icons/Search' si lo tienes allí
+import { Search } from 'lucide-react-native';
 import { cn } from '@/lib/utils';
 
 interface ChatSearchInputProps {

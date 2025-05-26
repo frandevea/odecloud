@@ -30,7 +30,6 @@ export default function ChatListItem({ chat, userId, onPress }: ChatListItemProp
     ? getRelativeTimestamp(lastMessage.createdAt)
     : null;
 
-  // Para el avatar
   const avatars = members.map((m: any) => {
     const first = m.profile?.firstName?.[0] ?? '';
     const last = m.profile?.lastName?.[0] ?? '';

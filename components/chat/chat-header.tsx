@@ -10,7 +10,7 @@ export default function ChatHeader() {
   const { data: user } = useUser(userId);
   const userName = `${user?.profile?.firstName ?? ''} ${user?.profile?.lastName ?? ''}`.trim();
   const userAvatarUrl = user?.profile?.avatar?.secureUrl;
-  const isOnline = true; // puedes cambiar esto si tienes una forma de saber el estado real
+  const isOnline = true;
   const userInitials = (
     (user?.profile?.firstName?.[0] ?? '') + (user?.profile?.lastName?.[0] ?? '')
   ).toUpperCase();

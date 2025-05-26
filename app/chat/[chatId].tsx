@@ -35,7 +35,6 @@ export default function ChatScreen() {
 
   const safeMembers = members.filter((m) => m.profile);
 
-  // Asegura que el usuario actual esté incluido aunque no venga en `members`
   const hasCurrentUser = safeMembers.some((m) => m._id === userId);
   if (!hasCurrentUser) {
     safeMembers.push({

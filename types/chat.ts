@@ -19,7 +19,6 @@ export interface User {
   }[];
 }
 
-// Archivos (Cloudinary)
 export interface CloudinaryFile {
   secure_url: string;
   public_id: string;
@@ -31,7 +30,6 @@ export interface CloudinaryFile {
   created_at: string;
 }
 
-// Adjuntos internos
 export interface MessageFile {
   _id: string | null;
   uiId?: string;
@@ -40,7 +38,6 @@ export interface MessageFile {
   createdBy: UUID;
 }
 
-// Mensaje individual
 export interface Message {
   _id: UUID;
   associatedId: UUID | null;

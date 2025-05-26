@@ -9,7 +9,7 @@ export default function ChatEmptyState() {
   const router = useRouter();
 
   const handleGoToFeed = () => {
-    router.push('/(tabs)/feed'); // Asumiendo que la ruta del feed es '/feed'
+    router.push('/(tabs)/feed');
   };
 
   return (
