@@ -7,6 +7,7 @@ import * as React from 'react';
 import { Platform } from 'react-native';
 import { NAV_THEME } from '@/lib/constants';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { PortalHost } from '@rn-primitives/portal';
 import '@/global.css';
 
 const LIGHT_THEME: Theme = {
@@ -46,6 +47,8 @@ export default function RootLayout() {
     <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
       <QueryClientProvider client={queryClient}>
         <Slot />
+        <PortalHost />
+
         <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
       </QueryClientProvider>
     </ThemeProvider>
