@@ -1,14 +1,32 @@
 import { View } from 'react-native';
-import ChatHeader from '@/components/chat/chat-header';
-import ChatEmptyState from '@/components/chat/empty-state';
-import ChatSearchInput from '@/components/chat/chat-search-input';
+import { useRouter } from 'expo-router';
+import { useStore } from '@nanostores/react';
+import { authStore } from '@/stores/authStore';
 
-export default function ChatScreen() {
+import { useChats } from '@/hooks/useChats';
+import ChatList from '@/components/chat/chat-list';
+import ChatEmptyState from '@/components/chat/empty-state';
+import ChatHeader from '@/components/chat/chat-header';
+
+export default function ChatListScreen() {
+  const router = useRouter();
+  const { userId } = useStore(authStore);
+  const { data: chats, isLoading } = useChats(userId);
+
+  const handleSelectChat = (chatId: string) => {
+    router.push(`/chat/${chatId}`);
+  };
+
   return (
     <View className="flex-1 bg-background">
-      <ChatHeader userName="David" isOnline />
-      <ChatSearchInput />
-      <ChatEmptyState />
+      <ChatHeader />
+      {isLoading ? (
+        <ChatEmptyState />
+      ) : chats && chats.length > 0 && userId ? (
+        <ChatList chats={chats} userId={userId} onSelectChat={handleSelectChat} />
+      ) : (
+        <ChatEmptyState />
+      )}
     </View>
   );
 }
