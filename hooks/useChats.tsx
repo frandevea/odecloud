@@ -3,7 +3,7 @@ import api from '@/lib/api';
 import { Chat } from '@/types/chat';
 
 export const fetchChats = async (userId: string): Promise<Chat[]> => {
-  console.log('fetching Chats', userId);
+  console.log('fetching chats', userId);
   const res = await api.get('/tags/chats/', {
     params: {
       isDirectChat: true,
