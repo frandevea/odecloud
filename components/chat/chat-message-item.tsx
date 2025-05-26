@@ -1,5 +1,5 @@
 import { View, useWindowDimensions, Image } from 'react-native';
-import RenderHTML from 'react-native-render-html';
+import { useMemo } from 'react';
 import { Message, Chat } from '@/types/chat';
 import { cn, getUserProfileById } from '@/lib/utils';
 import { useAuth } from '@/hooks/useAuth';
@@ -7,6 +7,7 @@ import { Text } from '@/components/ui/text';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Reply } from '@/lib/icons/Reply';
 import { CheckCheck } from '@/lib/icons/CheckCheck';
+import { MemoizedHTML } from '../memoized-html';
 
 function sanitizeHtml(html: string) {
   html = html.replace(/<img[^>]*src=["'](about:blank|\/|file:|undefined|)["'][^>]*>/gi, '');
@@ -48,7 +49,7 @@ export function ChatMessageItem({ message, chat, messages }: Props) {
     { emoji: '👀', key: 'views' },
   ];
 
-  const safeHtml = sanitizeHtml(message.text || '');
+  const safeHtml = useMemo(() => sanitizeHtml(message.text || ''), [message.text]);
   const hasText = !!safeHtml.trim();
   const files = message?.data?.files || message?.files || [];
 
@@ -58,9 +59,10 @@ export function ChatMessageItem({ message, chat, messages }: Props) {
 
   return (
     <View className="mb-4 max-w-[90%]" style={{ alignSelf: isOwn ? 'flex-end' : 'flex-start' }}>
+      {/* Reply preview */}
       {replyTo && (
-        <View className="flex flex-row items-center mb-1 gap-x-1">
-          <Reply size={18} className="text-primary" />
+        <View className="flex-row items-center mb-1 gap-x-1">
+          <Reply size={16} className="text-primary" />
           <Text className="text-xs italic text-muted-foreground">
             {getUserProfileById(members, replyTo.createdBy)?.profile.firstName} replied: &quot;
             {replyTo.rawText?.slice(0, 40)}...&quot;
@@ -79,17 +81,7 @@ export function ChatMessageItem({ message, chat, messages }: Props) {
         )}
 
         <View className={cn('rounded-xl px-4 py-4', isOwn ? 'bg-[#fddde6]' : 'bg-[#f3f3f3]')}>
-          {!!hasText && (
-            <RenderHTML
-              contentWidth={width}
-              source={{ html: safeHtml }}
-              baseStyle={{ color: '#111', fontSize: 15, lineHeight: 20 }}
-              tagsStyles={{
-                span: { color: '#3182ce', fontWeight: '600' },
-                a: { color: '#3182ce' },
-              }}
-            />
-          )}
+          {!!hasText && <MemoizedHTML html={safeHtml} />}
           {!!firstImage?.cloudinary?.secure_url && (
             <Image
               source={{ uri: firstImage.cloudinary.secure_url }}
@@ -105,6 +97,7 @@ export function ChatMessageItem({ message, chat, messages }: Props) {
         </View>
       </View>
 
+      {/* Reactions + timestamp/checks */}
       <View
         className={cn(
           'mt-2 flex-row flex-wrap items-center gap-2',
