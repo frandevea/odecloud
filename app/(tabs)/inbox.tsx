@@ -1,9 +1,9 @@
-import { View, Text } from 'react-native';
+import { Text, SafeAreaView } from 'react-native';
 
 export default function Inbox() {
   return (
-    <View style={{ padding: 20 }}>
+    <SafeAreaView style={{ padding: 20 }}>
       <Text>Inbox 🚀</Text>
-    </View>
+    </SafeAreaView>
   );
 }
