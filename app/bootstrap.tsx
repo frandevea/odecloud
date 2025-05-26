@@ -1,13 +1,17 @@
-// app/bootstrap.tsx
 import { useEffect, useState } from 'react';
-import { router } from 'expo-router';
-import { restoreSession } from '@/lib/auth';
+import { useQueryClient } from '@tanstack/react-query';
 import * as SecureStore from 'expo-secure-store';
+import { router } from 'expo-router';
+
 import SplashScreen from '@/components/SplashScreen';
+import { restoreSession } from '@/lib/auth';
+import { authStore } from '@/stores/authStore';
+import { fetchChats } from '@/hooks/useChats';
 
 export default function BootstrapScreen() {
   const [splashFinished, setSplashFinished] = useState(false);
   const [targetRoute, setTargetRoute] = useState<string | null>(null);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const bootstrap = async () => {
@@ -18,8 +22,17 @@ export default function BootstrapScreen() {
         return;
       }
 
+      const { userId } = authStore.get();
+      if (userId) {
+        await queryClient.prefetchQuery({
+          queryKey: ['chats', userId],
+          queryFn: () => fetchChats(userId),
+          staleTime: 1000 * 60 * 2,
+        });
+      }
+
       const hasSeenOnboarding = await SecureStore.getItemAsync('hasSeenOnboarding');
-      setTargetRoute(hasSeenOnboarding ? '/(tabs)/inbox' : '/(auth)/OnboardingScreen');
+      setTargetRoute(hasSeenOnboarding ? '/(tabs)/chat' : '/(auth)/OnboardingScreen');
     };
 
     bootstrap();
