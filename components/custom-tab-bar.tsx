@@ -9,7 +9,7 @@ export default function CustomTabBar({ state, descriptors, navigation }: BottomT
   return (
     <View
       className={cn(
-        'absolute bottom-12 left-12 right-12 flex-row justify-between rounded-xl bg-white px-4 py-2',
+        'absolute bottom-12 left-6 right-6 flex-row justify-between rounded-xl bg-white px-4 py-2',
         'border border-black/5 shadow-lg'
       )}
       style={{
@@ -55,7 +55,10 @@ export default function CustomTabBar({ state, descriptors, navigation }: BottomT
               {iconRender}
             </View>
             <Text
-              className={cn('mt-1 text-xs', isFocused ? 'text-primary' : 'text-muted-foreground')}>
+              className={cn(
+                'text-md mt-1 font-semibold',
+                isFocused ? 'text-primary' : 'text-muted-foreground'
+              )}>
               {label}
             </Text>
           </Pressable>

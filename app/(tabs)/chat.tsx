@@ -1,9 +1,10 @@
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import ChatHeader from '@/components/chat/chat-header';
 
-export default function Chat() {
+export default function ChatScreen() {
   return (
-    <View style={{ padding: 20 }}>
-      <Text>CHAT 🚀</Text>
+    <View className="flex-1 bg-background">
+      <ChatHeader userName="David" isOnline />
     </View>
   );
 }
