@@ -41,6 +41,6 @@ export async function navigateAfterLogin() {
   if (!seenOnboarding) {
     router.replace('/(auth)/OnboardingScreen');
   } else {
-    router.replace('/(tabs)/Chat');
+    router.replace('/(tabs)/chat');
   }
 }

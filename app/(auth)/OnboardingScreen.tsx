@@ -19,7 +19,7 @@ export default function OnboardingScreen() {
     await SecureStore.setItemAsync('notificationPreference', selectedOption);
     // Aquí podrías enviar el expoPushToken y selectedOption a tu backend
     console.log('Notification preference:', selectedOption);
-    router.replace('/(tabs)/Chat');
+    router.replace('/(tabs)/chat');
   };
 
   const options = [
