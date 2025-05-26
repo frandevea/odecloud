@@ -9,7 +9,7 @@ export default function CustomTabBar({ state, descriptors, navigation }: BottomT
   return (
     <View
       className={cn(
-        'absolute bottom-12 left-12 right-12 flex-row justify-between rounded-2xl bg-white px-4 py-2',
+        'absolute bottom-12 left-12 right-12 flex-row justify-between rounded-xl bg-white px-4 py-2',
         'border border-black/5 shadow-lg'
       )}
       style={{
@@ -51,7 +51,7 @@ export default function CustomTabBar({ state, descriptors, navigation }: BottomT
               }
             }}
             className="items-center justify-center flex-1">
-            <View className={cn('rounded-full px-4 py-1', isFocused && 'bg-primary/10')}>
+            <View className={cn('rounded-xl px-4 py-1', isFocused && 'bg-primary/10')}>
               {iconRender}
             </View>
             <Text
