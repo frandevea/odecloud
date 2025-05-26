@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  ActivityIndicator,
-  Animated,
-  ImageBackground,
-  Image,
-  SafeAreaView,
-} from 'react-native';
+import { Text, ActivityIndicator, Animated, Image, SafeAreaView } from 'react-native';
 
 interface SplashScreenProps {
   onFinish: (isCancelled: boolean) => void;
