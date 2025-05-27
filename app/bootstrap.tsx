@@ -3,7 +3,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import * as SecureStore from 'expo-secure-store';
 import { router } from 'expo-router';
 
-import SplashScreen from '@/components/SplashScreen';
+import Splash from '@/components/splash';
 import { restoreSession } from '@/lib/auth';
 import { authStore } from '@/stores/authStore';
 import { fetchChats } from '@/hooks/useChats';
@@ -50,5 +50,5 @@ export default function BootstrapScreen() {
     }
   }, [splashFinished, targetRoute]);
 
-  return <SplashScreen onFinish={() => setSplashFinished(true)} />;
+  return <Splash onFinish={() => setSplashFinished(true)} />;
 }

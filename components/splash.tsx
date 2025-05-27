@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Text, ActivityIndicator, Animated, Image, SafeAreaView } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { ActivityIndicator, Animated, Image, SafeAreaView } from 'react-native';
+import { Text } from './ui/text';
 
 interface SplashScreenProps {
   onFinish: (isCancelled: boolean) => void;
@@ -12,50 +13,58 @@ const texts = [
   'Taming the backlog dragons...',
 ];
 
-const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
+const Splash: React.FC<SplashScreenProps> = ({ onFinish }) => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const [fadeAnim] = useState(new Animated.Value(0));
-  const [screenOverallOpacityAnim] = useState(new Animated.Value(1));
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const screenOpacityAnim = useRef(new Animated.Value(1)).current;
 
-  useEffect(() => {
+  // Fade in
+  const fadeIn = () => {
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 1000,
       useNativeDriver: true,
     }).start();
+  };
+
+  // Fade out
+  const fadeOut = (callback?: () => void) => {
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 500,
+      useNativeDriver: true,
+    }).start(callback);
+  };
+
+  useEffect(() => {
+    fadeIn();
 
     if (currentTextIndex < texts.length - 1) {
       const timer = setTimeout(() => {
-        Animated.timing(fadeAnim, {
-          toValue: 0,
-          duration: 500,
-          useNativeDriver: true,
-        }).start(() => {
-          setCurrentTextIndex(currentTextIndex + 1);
-        });
+        fadeOut(() => setCurrentTextIndex((prev) => prev + 1));
       }, 1500);
       return () => clearTimeout(timer);
     } else {
-      const lastTextVisibilityDuration = 1500;
-      const screenFadeOutDuration = 500;
+      const lastTextDuration = 1500;
+      const screenFadeDuration = 500;
 
       const finishTimer = setTimeout(() => {
-        Animated.timing(screenOverallOpacityAnim, {
+        Animated.timing(screenOpacityAnim, {
           toValue: 0,
-          duration: screenFadeOutDuration,
+          duration: screenFadeDuration,
           useNativeDriver: true,
         }).start(() => {
           onFinish(false);
         });
-      }, lastTextVisibilityDuration);
+      }, lastTextDuration);
       return () => clearTimeout(finishTimer);
     }
-  }, [currentTextIndex, fadeAnim, onFinish, screenOverallOpacityAnim]);
+  }, [currentTextIndex]);
 
   return (
     <SafeAreaView className="flex-1 bg-white font-Poppins_Regular">
       <Animated.View
-        style={{ opacity: screenOverallOpacityAnim }}
+        style={{ opacity: screenOpacityAnim }}
         className="items-center justify-end w-full">
         <Image
           source={require('../assets/images/bg_splash.png')}
@@ -64,11 +73,11 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
         />
         <ActivityIndicator />
         <Animated.View style={{ opacity: fadeAnim }} className="pb-12">
-          <Text className="mt-5 text-lg text-gray-800 ">{texts[currentTextIndex]}</Text>
+          <Text className="mt-5 text-lg text-gray-800">{texts[currentTextIndex]}</Text>
         </Animated.View>
       </Animated.View>
     </SafeAreaView>
   );
 };
 
-export default SplashScreen;
+export default Splash;
