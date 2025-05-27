@@ -1,20 +1,12 @@
-import {
-  SafeAreaView,
-  View,
-  Text,
-  Alert,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableOpacity,
-} from 'react-native';
+import { SafeAreaView, View, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { z } from 'zod';
 import { emailSchema } from '../../lib/validation';
 import { getRememberedEmail, saveEmail, clearSavedEmail } from '../../lib/storage';
-import { EmailInput } from '../../components/form/EmaiInput';
-import { RememberCheckbox } from '../../components/form/RememberCheckbox';
-import { PrimaryButton } from '../../components/PrimaryButton';
+import { Input } from '../../components/ui/input';
+import { Checkbox } from '../../components/ui/checkbox';
+import { Button } from '../../components/ui/button';
+import { Text } from '../../components/ui/text';
 
 export default function EmailScreen() {
   const [email, setEmail] = useState('');
@@ -59,19 +51,35 @@ export default function EmailScreen() {
             <Text className="py-4 text-5xl">👋</Text>
             <Text className="mb-8 text-3xl font-bold text-black">Sign in</Text>
 
-            <EmailInput value={email} onChange={setEmail} />
-            <RememberCheckbox
-              checked={rememberEmail}
-              onToggle={() => setRememberEmail(!rememberEmail)}
+            <Input
+              value={email}
+              onChangeText={setEmail}
+              placeholder="Email"
+              className="h-12 px-3 text-lg border border-input bg-background placeholder:text-muted-foreground"
             />
-            <PrimaryButton label="Continue" onPress={handleContinue} disabled={!email.trim()} />
+            <View className="flex-row items-center my-4">
+              <Checkbox
+                checked={rememberEmail}
+                onCheckedChange={setRememberEmail}
+                aria-label="Remember me"
+              />
+              <Text className="ml-2 text-sm text-gray-600">Remember me</Text>
+            </View>
+            <Button onPress={handleContinue} variant="action" disabled={!email.trim()}>
+              <Text className="text-base font-semibold text-primary-foreground">Continue</Text>
+            </Button>
           </View>
 
           <View className="items-center">
             <Text className="mb-2 text-sm text-gray-600">Not an OdeCloud consultant yet?</Text>
-            <TouchableOpacity className="mb-4 w-full items-center rounded-md border border-[#E5E5E5] bg-white p-4">
-              <Text className="text-base font-semibold">Apply now</Text>
-            </TouchableOpacity>
+            <Button
+              variant="outline"
+              className="mb-4 h-auto w-full border-[#E5E5E5] bg-white p-4"
+              onPress={() => {
+                console.log('Apply now pressed');
+              }}>
+              <Text className="text-base font-semibold text-black">Apply now</Text>
+            </Button>
           </View>
         </View>
       </KeyboardAvoidingView>
