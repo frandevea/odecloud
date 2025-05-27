@@ -31,7 +31,7 @@ export function EmailForm() {
     if (rememberEmail) await saveEmail(email);
     else await clearSavedEmail();
 
-    router.push({ pathname: '/(auth)/PasswordScreen', params: { email } });
+    router.push({ pathname: '/(auth)/password', params: { email } });
   };
 
   return (
