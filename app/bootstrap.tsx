@@ -38,7 +38,7 @@ export default function BootstrapScreen() {
       }
 
       const hasSeenOnboarding = await SecureStore.getItemAsync('hasSeenOnboarding');
-      setTargetRoute(hasSeenOnboarding ? '/(tabs)/chat' : '/(auth)/OnboardingScreen');
+      setTargetRoute(hasSeenOnboarding ? '/(tabs)/chat' : '/(auth)/onboarding');
     };
 
     bootstrap();

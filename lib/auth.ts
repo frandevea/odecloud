@@ -41,7 +41,7 @@ export async function logout() {
 export async function navigateAfterLogin() {
   const seenOnboarding = await SecureStore.getItemAsync('hasSeenOnboarding');
   if (!seenOnboarding) {
-    router.replace('/(auth)/OnboardingScreen');
+    router.replace('/(auth)/onboarding');
   } else {
     router.replace('/(tabs)/chat');
   }
