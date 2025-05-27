@@ -11,7 +11,7 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { z } from 'zod';
 import { useAuth } from '../../hooks/useAuth';
-import { PasswordInput } from '../../components/form/PasswordInput';
+import { PasswordInput } from '../../components/auth/PasswordInput';
 import { PrimaryButton } from '../../components/PrimaryButton';
 import { navigateAfterLogin } from '@/lib/auth';
 

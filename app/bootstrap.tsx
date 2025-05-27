@@ -19,7 +19,7 @@ export default function BootstrapScreen() {
       const loggedIn = await restoreSession();
 
       if (!loggedIn) {
-        setTargetRoute('/(auth)/EmailScreen');
+        setTargetRoute('/(auth)/email');
         return;
       }
 

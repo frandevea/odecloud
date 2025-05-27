@@ -27,7 +27,7 @@ export default function ChatHeader() {
 
   const handleLogout = async () => {
     await logout();
-    router.replace('/(auth)/EmailScreen');
+    router.replace('/(auth)/email');
   };
 
   return (
