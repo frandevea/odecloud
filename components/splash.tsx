@@ -18,7 +18,6 @@ const Splash: React.FC<SplashScreenProps> = ({ onFinish }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const screenOpacityAnim = useRef(new Animated.Value(1)).current;
 
-  // Fade in
   const fadeIn = () => {
     Animated.timing(fadeAnim, {
       toValue: 1,
@@ -27,7 +26,6 @@ const Splash: React.FC<SplashScreenProps> = ({ onFinish }) => {
     }).start();
   };
 
-  // Fade out
   const fadeOut = (callback?: () => void) => {
     Animated.timing(fadeAnim, {
       toValue: 0,

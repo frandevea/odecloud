@@ -1,4 +1,3 @@
-// app/(auth)/onboarding.tsx
 import { SafeAreaView, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
