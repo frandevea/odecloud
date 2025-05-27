@@ -33,6 +33,8 @@ export async function restoreSession() {
 export async function logout() {
   await SecureStore.deleteItemAsync('token');
   await SecureStore.deleteItemAsync('userId');
+  await SecureStore.deleteItemAsync('hasSeenOnboarding');
+  await SecureStore.deleteItemAsync('notificationPreference');
   authStore.set({ token: null, userId: null });
 }
 
