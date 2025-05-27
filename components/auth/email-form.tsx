@@ -8,6 +8,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { useRememberedEmail } from '@/hooks/useRememberedEmail';
+import { Label } from '../ui/label';
 
 export function EmailForm() {
   const { email, setEmail } = useRememberedEmail();
@@ -38,7 +39,7 @@ export function EmailForm() {
     <>
       <Text className="py-4 text-5xl">👋</Text>
       <Text className="mb-8 text-3xl font-bold text-black">Sign in</Text>
-
+      <Label>Email</Label>
       <Input
         testID="email-input"
         accessibilityLabel="Email input"
