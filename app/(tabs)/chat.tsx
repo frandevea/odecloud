@@ -6,7 +6,6 @@ import { authStore } from '@/stores/authStore';
 import { useChats } from '@/hooks/useChats';
 import ChatList from '@/components/chat/chat-list';
 import ChatEmptyState from '@/components/chat/empty-state';
-import TabsHeader from '@/components/layout/tabs-header';
 
 export default function ChatListScreen() {
   const router = useRouter();
@@ -19,7 +18,6 @@ export default function ChatListScreen() {
 
   return (
     <SafeAreaView className="flex-1">
-      <TabsHeader title="Chat" />
       <View className="flex-1 bg-background">
         {isLoading ? (
           <ChatEmptyState />
