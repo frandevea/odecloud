@@ -9,7 +9,7 @@ export default function CustomTabBar({ state, descriptors, navigation }: BottomT
   return (
     <View
       className={cn(
-        'absolute bottom-12 left-6 right-6 flex-row justify-between rounded-xl bg-white px-4 py-2',
+        'absolute bottom-0 left-6 right-6 flex-row justify-between rounded-xl bg-white px-4 py-2',
         'border border-black/5 shadow-lg'
       )}
       style={{
