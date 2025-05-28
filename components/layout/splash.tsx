@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ActivityIndicator, Animated, Image, SafeAreaView } from 'react-native';
+import { ActivityIndicator, Animated, Image, SafeAreaView, View } from 'react-native';
 import { Text } from '@/components/ui/text';
 
 interface SplashScreenProps {
   onFinish: (isCancelled: boolean) => void;
+  mode?: 'welcome' | 'loading';
 }
 
 const texts = [
@@ -13,7 +14,9 @@ const texts = [
   'Taming the backlog dragons...',
 ];
 
-const Splash: React.FC<SplashScreenProps> = ({ onFinish }) => {
+const Splash: React.FC<SplashScreenProps> = ({ onFinish, mode = 'welcome' }) => {
+  const isLoadingSplash = mode === 'loading';
+
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const screenOpacityAnim = useRef(new Animated.Value(1)).current;
@@ -48,6 +51,13 @@ const Splash: React.FC<SplashScreenProps> = ({ onFinish }) => {
   }, [screenOpacityAnim, onFinish]);
 
   useEffect(() => {
+    if (!isLoadingSplash) {
+      const timer = setTimeout(() => {
+        handleFinish();
+      }, 1200);
+      return () => clearTimeout(timer);
+    }
+
     fadeIn();
 
     if (currentTextIndex < texts.length - 1) {
@@ -62,7 +72,7 @@ const Splash: React.FC<SplashScreenProps> = ({ onFinish }) => {
       }, lastTextDuration);
       return () => clearTimeout(finishTimer);
     }
-  }, [currentTextIndex, fadeIn, fadeOut, handleFinish]);
+  }, [currentTextIndex, fadeIn, fadeOut, handleFinish, isLoadingSplash]);
 
   return (
     <SafeAreaView className="flex-1 bg-white font-Poppins_Regular">
@@ -74,10 +84,15 @@ const Splash: React.FC<SplashScreenProps> = ({ onFinish }) => {
           resizeMode="cover"
           className="w-full h-full"
         />
-        <ActivityIndicator />
-        <Animated.View style={{ opacity: fadeAnim }} className="pb-12">
-          <Text className="mt-5 text-lg text-gray-800">{texts[currentTextIndex]}</Text>
-        </Animated.View>
+        <View className={`items-center ${isLoadingSplash ? 'pb-12' : 'pb-24'}`}>
+          <ActivityIndicator />
+
+          {isLoadingSplash && (
+            <Animated.View style={{ opacity: fadeAnim }}>
+              <Text className="mt-5 text-lg text-gray-800">{texts[currentTextIndex]}</Text>
+            </Animated.View>
+          )}
+        </View>
       </Animated.View>
     </SafeAreaView>
   );
