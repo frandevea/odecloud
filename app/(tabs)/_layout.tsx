@@ -6,6 +6,7 @@ import { Inbox } from '@/lib/icons/Inbox';
 import { ClipboardList } from '@/lib/icons/ClipboardList';
 import { Users } from '@/lib/icons/Users';
 import { MessageSquare } from '@/lib/icons/MessageSquare';
+import { LoadingGate } from '@/components/layout/loading-gate';
 
 const tabs = [
   { name: 'inbox', label: 'Inbox', icon: Inbox },
@@ -22,31 +23,35 @@ export default function TabLayout() {
 
   return (
     <SafeAreaView className="flex-1 bg-background">
-      {title ? (
-        <View className="px-4 pt-4">
-          <TabsHeader title={title} />
-        </View>
-      ) : null}
+      <LoadingGate>
+        {title ? (
+          <View className="px-4 pt-4">
+            <TabsHeader title={title} />
+          </View>
+        ) : null}
 
-      <Tabs screenOptions={{ headerShown: false }} tabBar={(props) => <CustomTabBar {...props} />}>
-        {tabs.map((tab) => (
-          <Tabs.Screen
-            key={tab.name}
-            name={tab.name}
-            options={{
-              title: tab.label,
-              tabBarIcon: ({ focused }) => {
-                const Icon = tab.icon;
-                return (
-                  <Icon
-                    className={`h-6 w-6 ${focused ? 'text-primary' : 'text-muted-foreground'}`}
-                  />
-                );
-              },
-            }}
-          />
-        ))}
-      </Tabs>
+        <Tabs
+          screenOptions={{ headerShown: false }}
+          tabBar={(props) => <CustomTabBar {...props} />}>
+          {tabs.map((tab) => (
+            <Tabs.Screen
+              key={tab.name}
+              name={tab.name}
+              options={{
+                title: tab.label,
+                tabBarIcon: ({ focused }) => {
+                  const Icon = tab.icon;
+                  return (
+                    <Icon
+                      className={`h-6 w-6 ${focused ? 'text-primary' : 'text-muted-foreground'}`}
+                    />
+                  );
+                },
+              }}
+            />
+          ))}
+        </Tabs>
+      </LoadingGate>
     </SafeAreaView>
   );
 }

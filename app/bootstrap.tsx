@@ -8,10 +8,12 @@ import { restoreSession } from '@/lib/auth';
 import { authStore } from '@/stores/authStore';
 import { fetchChats } from '@/hooks/useChats';
 import { fetchUserDetails } from '@/lib/api/user';
+import { hasBootstrapped } from '@/stores/bootStore';
 
 export default function BootstrapScreen() {
   const [splashFinished, setSplashFinished] = useState(false);
   const [targetRoute, setTargetRoute] = useState<string | null>(null);
+  const [splashMode, setSplashMode] = useState<'welcome' | 'loading'>('welcome');
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -19,9 +21,12 @@ export default function BootstrapScreen() {
       const loggedIn = await restoreSession();
 
       if (!loggedIn) {
+        setSplashMode('welcome');
         setTargetRoute('/(auth)/email');
         return;
       }
+
+      setSplashMode('loading');
 
       const { userId } = authStore.get();
       if (userId) {
@@ -37,6 +42,7 @@ export default function BootstrapScreen() {
         });
       }
 
+      hasBootstrapped.set(true);
       const hasSeenOnboarding = await SecureStore.getItemAsync('hasSeenOnboarding');
       setTargetRoute(hasSeenOnboarding ? '/(tabs)/chat' : '/(auth)/onboarding');
     };
@@ -50,5 +56,5 @@ export default function BootstrapScreen() {
     }
   }, [splashFinished, targetRoute]);
 
-  return <Splash onFinish={() => setSplashFinished(true)} />;
+  return <Splash onFinish={() => setSplashFinished(true)} mode={splashMode} />;
 }
