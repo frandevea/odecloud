@@ -5,13 +5,6 @@ import { router } from 'expo-router';
 import { Text } from '@/components/ui/text';
 
 export default function Inbox() {
-  const error = false;
-
-  if (error) {
-    router.push('/not-found'); // Redirige manualmente
-    return null;
-  }
-
   return (
     <SafeAreaView className="flex-1">
       <EmptyContent
