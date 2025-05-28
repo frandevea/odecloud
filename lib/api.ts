@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 
 const api = axios.create({
-  baseURL: 'https://server-alpha.odecloud.app/api/v1',
+  baseURL: process.env.EXPO_PUBLIC_API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
