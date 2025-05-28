@@ -1,4 +1,4 @@
-import { View, useWindowDimensions, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import { useMemo } from 'react';
 import { Message, Chat } from '@/types/chat';
 import { cn, getUserProfileById } from '@/lib/utils';
@@ -7,7 +7,7 @@ import { Text } from '@/components/ui/text';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Reply } from '@/lib/icons/Reply';
 import { CheckCheck } from '@/lib/icons/CheckCheck';
-import { MemoizedHTML } from '../memoized-html';
+import { MemoizedHTML } from '../utils/memoized-html';
 
 function sanitizeHtml(html: string) {
   html = html.replace(/<img[^>]*src=["'](about:blank|\/|file:|undefined|)["'][^>]*>/gi, '');
@@ -23,7 +23,6 @@ interface Props {
 }
 
 export function ChatMessageItem({ message, chat, messages }: Props) {
-  const { width } = useWindowDimensions();
   const { userId } = useAuth();
   const isOwn = message.createdBy === userId;
 

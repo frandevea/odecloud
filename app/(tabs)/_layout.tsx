@@ -1,7 +1,7 @@
 import { SafeAreaView, View } from 'react-native';
 import { Tabs, usePathname } from 'expo-router';
 import TabsHeader from '@/components/layout/tabs-header';
-import CustomTabBar from '@/components/custom-tab-bar';
+import CustomTabBar from '@/components/layout/custom-tab-bar';
 import { Inbox } from '@/lib/icons/Inbox';
 import { ClipboardList } from '@/lib/icons/ClipboardList';
 import { Users } from '@/lib/icons/Users';

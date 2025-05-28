@@ -17,7 +17,7 @@ import { ChatMessageItem } from '@/components/chat/chat-message-item';
 import { getChatMessages } from '@/hooks/useChatMessages';
 import { Chat, Message } from '@/types/chat';
 import { authStore } from '@/stores/authStore';
-import { GroupAvatar } from '@/components/group-avatar';
+import { GroupAvatar } from '@/components/ui/group-avatar';
 
 export default function ChatScreen() {
   const { chatId } = useLocalSearchParams();
@@ -74,10 +74,10 @@ export default function ChatScreen() {
   ) : otherUser?.profile?.avatar?.secureUrl ? (
     <Image
       source={{ uri: otherUser.profile.avatar.secureUrl }}
-      className="w-8 h-8 rounded-full bg-muted"
+      className="h-8 w-8 rounded-full bg-muted"
     />
   ) : (
-    <View className="items-center justify-center w-8 h-8 rounded-full bg-muted">
+    <View className="h-8 w-8 items-center justify-center rounded-full bg-muted">
       <Text className="text-xs font-semibold text-foreground">
         {(otherFirstName[0] ?? '') + (otherLastName[0] ?? '')}
       </Text>
@@ -117,11 +117,11 @@ export default function ChatScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-background">
-      <View className="flex-row items-center gap-3 px-4 py-2 border-b border-border">
-        <TouchableOpacity onPress={() => router.push('/(tabs)/chat')} className="p-2 -ml-2">
+      <View className="flex-row items-center gap-3 border-b border-border px-4 py-2">
+        <TouchableOpacity onPress={() => router.push('/(tabs)/chat')} className="-ml-2 p-2">
           <ArrowLeft className="text-foreground" size={24} />
         </TouchableOpacity>
-        <View className="flex-row items-center flex-1 gap-2">
+        <View className="flex-1 flex-row items-center gap-2">
           {avatarElement}
           <View>
             <Text className="font-medium text-foreground">{displayName}</Text>
@@ -154,10 +154,10 @@ export default function ChatScreen() {
             ListFooterComponent={isFetchingNextPage ? <ActivityIndicator /> : null}
           />
         ) : (
-          <View className="items-center justify-center flex-1">
+          <View className="flex-1 items-center justify-center">
             <Image
               source={require('@/assets/images/chat-empty.png')}
-              className="w-20 h-20 opacity-50"
+              className="h-20 w-20 opacity-50"
               resizeMode="contain"
             />
             <Text className="mt-2 text-base text-muted-foreground">Send the first message!</Text>
@@ -165,7 +165,7 @@ export default function ChatScreen() {
         )}
       </View>
 
-      <View className="flex-row items-center gap-2 px-3 py-2 border-t border-border">
+      <View className="flex-row items-center gap-2 border-t border-border px-3 py-2">
         <TouchableOpacity className="p-2">
           <Paperclip className="text-muted-foreground" size={22} />
         </TouchableOpacity>
@@ -173,7 +173,7 @@ export default function ChatScreen() {
           placeholder="Send a message"
           value={message}
           onChangeText={setMessage}
-          className="flex-1 h-10 px-4 text-base border-0 rounded-full bg-muted placeholder:text-muted-foreground"
+          className="h-10 flex-1 rounded-full border-0 bg-muted px-4 text-base placeholder:text-muted-foreground"
         />
       </View>
     </SafeAreaView>

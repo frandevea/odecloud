@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ActivityIndicator, Animated, Image, SafeAreaView } from 'react-native';
-import { Text } from './ui/text';
+import { Text } from '@/components/ui/text';
 
 interface SplashScreenProps {
   onFinish: (isCancelled: boolean) => void;
@@ -18,21 +18,34 @@ const Splash: React.FC<SplashScreenProps> = ({ onFinish }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const screenOpacityAnim = useRef(new Animated.Value(1)).current;
 
-  const fadeIn = () => {
+  const fadeIn = useCallback(() => {
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 1000,
       useNativeDriver: true,
     }).start();
-  };
+  }, [fadeAnim]);
 
-  const fadeOut = (callback?: () => void) => {
-    Animated.timing(fadeAnim, {
+  const fadeOut = useCallback(
+    (callback?: () => void) => {
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }).start(callback);
+    },
+    [fadeAnim]
+  );
+
+  const handleFinish = useCallback(() => {
+    Animated.timing(screenOpacityAnim, {
       toValue: 0,
       duration: 500,
       useNativeDriver: true,
-    }).start(callback);
-  };
+    }).start(() => {
+      onFinish(false);
+    });
+  }, [screenOpacityAnim, onFinish]);
 
   useEffect(() => {
     fadeIn();
@@ -44,20 +57,12 @@ const Splash: React.FC<SplashScreenProps> = ({ onFinish }) => {
       return () => clearTimeout(timer);
     } else {
       const lastTextDuration = 1500;
-      const screenFadeDuration = 500;
-
       const finishTimer = setTimeout(() => {
-        Animated.timing(screenOpacityAnim, {
-          toValue: 0,
-          duration: screenFadeDuration,
-          useNativeDriver: true,
-        }).start(() => {
-          onFinish(false);
-        });
+        handleFinish();
       }, lastTextDuration);
       return () => clearTimeout(finishTimer);
     }
-  }, [currentTextIndex]);
+  }, [currentTextIndex, fadeIn, fadeOut, handleFinish]);
 
   return (
     <SafeAreaView className="flex-1 bg-white font-Poppins_Regular">
@@ -65,7 +70,7 @@ const Splash: React.FC<SplashScreenProps> = ({ onFinish }) => {
         style={{ opacity: screenOpacityAnim }}
         className="items-center justify-end w-full">
         <Image
-          source={require('../assets/images/bg_splash.png')}
+          source={require('@/assets/images/bg_splash.png')}
           resizeMode="cover"
           className="w-full h-full"
         />

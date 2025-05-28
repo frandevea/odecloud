@@ -2,7 +2,7 @@ import { View, Pressable } from 'react-native';
 import { Text } from '@/components/ui/text';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { getRelativeTimestamp } from '@/lib/utils';
-import { GroupAvatar } from '@/components/group-avatar';
+import { GroupAvatar } from '@/components/ui/group-avatar';
 
 interface ChatListItemProps {
   chat: any;
@@ -55,7 +55,7 @@ export default function ChatListItem({ chat, userId, onPress }: ChatListItemProp
           </Avatar>
         )}
       </View>
-      <View className="flex-1 h-full pt-4 border-b border-gray-100">
+      <View className="h-full flex-1 border-b border-gray-100 pt-4">
         <View className="flex-row items-center justify-between">
           <Text className="text-base font-medium text-foreground">
             {userName || 'Unknown User'}

@@ -3,7 +3,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import * as SecureStore from 'expo-secure-store';
 import { router } from 'expo-router';
 
-import Splash from '@/components/splash';
+import Splash from '@/components/layout/splash';
 import { restoreSession } from '@/lib/auth';
 import { authStore } from '@/stores/authStore';
 import { fetchChats } from '@/hooks/useChats';
@@ -42,7 +42,7 @@ export default function BootstrapScreen() {
     };
 
     bootstrap();
-  }, []);
+  }, [queryClient]);
 
   useEffect(() => {
     if (splashFinished && targetRoute) {
