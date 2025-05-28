@@ -118,7 +118,7 @@ export default function ChatScreen() {
   return (
     <SafeAreaView className="flex-1 bg-background">
       <View className="flex-row items-center gap-3 px-4 py-2 border-b border-border">
-        <TouchableOpacity onPress={() => router.back()} className="p-2 -ml-2">
+        <TouchableOpacity onPress={() => router.push('/(tabs)/chat')} className="p-2 -ml-2">
           <ArrowLeft className="text-foreground" size={24} />
         </TouchableOpacity>
         <View className="flex-row items-center flex-1 gap-2">
