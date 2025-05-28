@@ -95,7 +95,8 @@ npm run format     # Auto-format codebase
 
 1. Clone the repo
 2. Run `npm install`
-3. Start the project with `npm run start`
-4. Open it using **Expo Go** or your preferred simulator
+3. Create a .env file, following the .env.example file
+4. Start the project with `npm run start`
+5. Open it using **Expo Go** or your preferred simulator
 
 > Let me know if you need credentials or additional instructions to test specific flows.
