@@ -8,7 +8,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { useRememberedEmail } from '@/hooks/useRememberedEmail';
-import { Label } from '../ui/label';
+import { Label } from '@/components/ui/label';
 
 export function EmailForm() {
   const { email, setEmail } = useRememberedEmail();

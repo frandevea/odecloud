@@ -1,6 +1,6 @@
 import api from './api';
 import * as SecureStore from 'expo-secure-store';
-import { authStore } from '../stores/authStore';
+import { authStore } from '@/stores/authStore';
 import { router } from 'expo-router';
 
 export async function login({ email, password }: { email: string; password: string }) {

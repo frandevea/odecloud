@@ -1,10 +1,10 @@
 import { useStore } from '@nanostores/react';
-import { authStore } from '../stores/authStore';
+import { authStore } from '@/stores/authStore';
 import {
   login as loginFn,
   logout as logoutFn,
   restoreSession as restoreSessionFn,
-} from '../lib/auth';
+} from '@/lib/auth';
 import { useState, useEffect } from 'react';
 
 export function useAuth() {

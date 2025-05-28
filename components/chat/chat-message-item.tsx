@@ -7,7 +7,7 @@ import { Text } from '@/components/ui/text';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Reply } from '@/lib/icons/Reply';
 import { CheckCheck } from '@/lib/icons/CheckCheck';
-import { MemoizedHTML } from '../utils/memoized-html';
+import { MemoizedHTML } from '@/components/utils/memoized-html';
 
 function sanitizeHtml(html: string) {
   html = html.replace(/<img[^>]*src=["'](about:blank|\/|file:|undefined|)["'][^>]*>/gi, '');

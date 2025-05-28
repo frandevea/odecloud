@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { navigateAfterLogin } from '@/lib/auth';
-import { Label } from '../ui/label';
+import { Label } from '@/components/ui/label';
 
 const passwordSchema = z.object({
   password: z.string().min(4, 'Password is too short'),
