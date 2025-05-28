@@ -14,7 +14,7 @@ const tabs = [
 
 export default function TabLayout() {
   return (
-    <Tabs tabBar={(props) => <CustomTabBar {...props} />}>
+    <Tabs screenOptions={{ headerShown: false }} tabBar={(props) => <CustomTabBar {...props} />}>
       {tabs.map((tab) => (
         <Tabs.Screen
           key={tab.name}
