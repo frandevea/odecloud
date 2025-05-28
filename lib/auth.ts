@@ -7,7 +7,7 @@ export async function login({ email, password }: { email: string; password: stri
   const res = await api.post('/login/', {
     email,
     password,
-    appUrl: 'https://feed-alpha.odecloud.com',
+    appUrl: process.env.EXPO_PUBLIC_APP_URL,
   });
   const data = res.data;
   const token = data.authToken;
