@@ -37,7 +37,7 @@ export default function TabsHeader({ title }: TabsHeaderProps) {
   };
 
   return (
-    <View className="flex-row items-center justify-between px-6 pt-5 pb-3">
+    <View className="flex-row items-end justify-between px-3 pt-5 pb-3">
       <Text className="text-4xl font-semibold text-foreground">{title}</Text>
 
       <DropdownMenu>
