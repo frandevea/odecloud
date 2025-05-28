@@ -1,7 +1,6 @@
 import api from '@/lib/api';
 
 export const fetchUserDetails = async (userId: string) => {
-  console.log('fetching user details', userId);
   const res = await api.get(`/users/${userId}`, {
     params: {
       articles: 1,
