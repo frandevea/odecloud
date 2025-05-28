@@ -1,3 +1,5 @@
+// components/layout/AppHeader.tsx
+
 import { View } from 'react-native';
 import { Text } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
@@ -10,10 +12,14 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useUser } from '@/hooks/useUser';
 import { authStore } from '@/stores/authStore';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '@/hooks/useAuth';
 import { router } from 'expo-router';
 
-export default function ChatHeader() {
+type TabsHeaderProps = {
+  title: string;
+};
+
+export default function TabsHeader({ title }: TabsHeaderProps) {
   const userId = authStore.get().userId;
   const { data: user } = useUser(userId);
   const { logout } = useAuth();
@@ -31,8 +37,8 @@ export default function ChatHeader() {
   };
 
   return (
-    <View className="flex-row items-center justify-between px-6 py-5">
-      <Text className="text-4xl font-semibold text-foreground">Chat</Text>
+    <View className="flex-row items-center justify-between px-6 pt-5 pb-3">
+      <Text className="text-4xl font-semibold text-foreground">{title}</Text>
 
       <DropdownMenu>
         <DropdownMenuTrigger>

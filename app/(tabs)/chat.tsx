@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { SafeAreaView, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useStore } from '@nanostores/react';
 import { authStore } from '@/stores/authStore';
@@ -6,7 +6,7 @@ import { authStore } from '@/stores/authStore';
 import { useChats } from '@/hooks/useChats';
 import ChatList from '@/components/chat/chat-list';
 import ChatEmptyState from '@/components/chat/empty-state';
-import ChatHeader from '@/components/chat/chat-header';
+import TabsHeader from '@/components/layout/tabs-header';
 
 export default function ChatListScreen() {
   const router = useRouter();
@@ -18,15 +18,17 @@ export default function ChatListScreen() {
   };
 
   return (
-    <View className="flex-1 bg-background">
-      <ChatHeader />
-      {isLoading ? (
-        <ChatEmptyState />
-      ) : chats && chats.length > 0 && userId ? (
-        <ChatList chats={chats} userId={userId} onSelectChat={handleSelectChat} />
-      ) : (
-        <ChatEmptyState />
-      )}
-    </View>
+    <SafeAreaView className="flex-1">
+      <TabsHeader title="Chat" />
+      <View className="flex-1 bg-background">
+        {isLoading ? (
+          <ChatEmptyState />
+        ) : chats && chats.length > 0 && userId ? (
+          <ChatList chats={chats} userId={userId} onSelectChat={handleSelectChat} />
+        ) : (
+          <ChatEmptyState />
+        )}
+      </View>
+    </SafeAreaView>
   );
 }
