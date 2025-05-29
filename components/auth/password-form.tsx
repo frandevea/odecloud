@@ -48,6 +48,8 @@ export function PasswordForm() {
 
       <Label>Password</Label>
       <Input
+        testID="password-input"
+        accessibilityLabel="Password input"
         value={password}
         onChangeText={setPassword}
         placeholder="Enter your password"
@@ -59,6 +61,7 @@ export function PasswordForm() {
       {error && <Text className="mt-1 text-sm text-red-500">{error}</Text>}
 
       <Button
+        testID="login-button"
         onPress={handleContinue}
         variant="action"
         disabled={password.trim().length < 4 || isLoading}
@@ -69,6 +72,7 @@ export function PasswordForm() {
       </Button>
 
       <Button
+        testID="forgot-password-button"
         variant="outline"
         accessibilityRole="button"
         className="my-4 h-auto w-full items-center rounded-md border border-[#E5E5E5] bg-white p-4"

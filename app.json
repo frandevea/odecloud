@@ -10,14 +10,19 @@
     "experiments": {
       "tsconfigPaths": true
     },
-    "plugins": ["expo-router", "expo-secure-store"],
+    "plugins": [
+      "expo-router",
+      "expo-secure-store"
+    ],
     "orientation": "portrait",
     "icon": "./assets/images/logo_with_bg.png",
     "userInterfaceStyle": "light",
     "splash": {
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.frandevea.odecloud",
@@ -31,7 +36,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.frandevea.odecloud"
     }
   }
 }

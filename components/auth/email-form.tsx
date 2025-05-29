@@ -37,9 +37,14 @@ export function EmailForm() {
 
   return (
     <>
-      <Text className="py-4 text-5xl">👋</Text>
-      <Text className="mb-8 text-3xl font-bold text-black">Sign in</Text>
-      <Label>Email</Label>
+      <Text testID="emoji" className="py-4 text-5xl">
+        👋
+      </Text>
+      <Text testID="title" className="mb-8 text-3xl font-bold text-black">
+        Sign in
+      </Text>
+
+      <Label htmlFor="email-input">Email</Label>
       <Input
         testID="email-input"
         accessibilityLabel="Email input"
@@ -52,21 +57,30 @@ export function EmailForm() {
         onChangeText={setEmail}
         className="h-12 px-3 text-lg border border-input bg-background placeholder:text-muted-foreground"
       />
-      {emailError && <Text className="mt-1 text-sm text-red-500">{emailError}</Text>}
+      {emailError && (
+        <Text testID="email-error" className="mt-1 text-sm text-red-500">
+          {emailError}
+        </Text>
+      )}
 
       <View className="flex-row items-center my-4">
         <Checkbox
+          testID="remember-checkbox"
+          accessibilityLabel="Remember me checkbox"
           checked={rememberEmail}
           onCheckedChange={(val) => setRememberEmail(val === true)}
         />
-        <Text className="ml-2 text-sm text-gray-600">Remember me</Text>
+        <Text testID="remember-label" className="ml-2 text-sm text-gray-600">
+          Remember me
+        </Text>
       </View>
 
       <Button
         onPress={handleContinue}
         variant="action"
         disabled={!email.trim() || !!emailError}
-        testID="continue-button">
+        testID="continue-button"
+        accessibilityLabel="Continue button">
         <Text className="text-base font-semibold text-primary-foreground">Continue</Text>
       </Button>
     </>
