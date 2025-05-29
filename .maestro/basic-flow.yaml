@@ -2,26 +2,31 @@ appId: com.frandevea.odecloud
 ---
 - clearKeychain
 - launchApp
-- assertVisible: 'Email'
 
+# === Auth flow ===
+- assertVisible: 'Email'
 - tapOn:
     id: email-input
-
 - inputText:
     id: email-input
     text: lucasgoyeche@gmail.com
-
 - tapOn:
     id: continue-button
-
 - assertVisible: 'Password'
-
 - tapOn:
     id: password-input
-
 - inputText:
     id: password-input
     text: testing123MyPasswor$d
-
 - tapOn:
     id: login-button
+
+# === Onboarding flow ===
+- assertVisible: 'Never miss anything'
+- tapOn:
+    id: 'option-silent'
+- tapOn:
+    id: continue-button
+
+# === Onboarding flow ===
+- assertVisible: 'Chat'

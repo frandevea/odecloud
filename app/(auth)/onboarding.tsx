@@ -17,7 +17,7 @@ export default function OnboardingScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1" testID="onboarding-screen">
       <View className="justify-between flex-1 p-6 bg-background">
         <View className="justify-between flex-1">
           <View>
@@ -37,7 +37,12 @@ export default function OnboardingScreen() {
             <Text className="mb-4 text-sm text-center text-muted-foreground">
               This does not affect desktop notifications
             </Text>
-            <Button variant="action" size="lg" className="w-full" onPress={handleFinish}>
+            <Button
+              variant="action"
+              size="lg"
+              className="w-full"
+              onPress={handleFinish}
+              testID="continue-button">
               <Text>Continue</Text>
             </Button>
           </View>

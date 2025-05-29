@@ -52,7 +52,10 @@ export function OnboardingOptions({ selectedOption, setSelectedOption }: Props) 
         const isSelected = selectedOption === option.id;
         const Icon = option.icon;
         return (
-          <TouchableOpacity key={option.id} onPress={() => setSelectedOption(option.id)}>
+          <TouchableOpacity
+            key={option.id}
+            onPress={() => setSelectedOption(option.id)}
+            testID={`option-${option.id}`}>
             <Card
               className={cn(
                 'flex-row items-start p-4',
