@@ -28,5 +28,16 @@ appId: com.frandevea.odecloud
 - tapOn:
     id: continue-button
 
-# === Onboarding flow ===
+# === Chat flow ===
+- assertVisible: 'Chat'
+- assertVisible:
+    id: chat-item
+    index: 0
+- tapOn:
+    id: chat-item
+    index: 0
+- assertVisible:
+    id: 'chat-message'
+- tapOn:
+    id: 'back-button'
 - assertVisible: 'Chat'

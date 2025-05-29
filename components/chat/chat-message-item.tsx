@@ -57,7 +57,10 @@ export function ChatMessageItem({ message, chat, messages }: Props) {
   );
 
   return (
-    <View className="mb-4 max-w-[90%]" style={{ alignSelf: isOwn ? 'flex-end' : 'flex-start' }}>
+    <View
+      className="mb-4 max-w-[90%]"
+      testID="chat-message"
+      style={{ alignSelf: isOwn ? 'flex-end' : 'flex-start' }}>
       {replyTo && (
         <View className="flex-row items-center mb-1 gap-x-1">
           <Reply size={16} className="text-primary" />

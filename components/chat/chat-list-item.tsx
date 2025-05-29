@@ -40,7 +40,11 @@ export default function ChatListItem({ chat, userId, onPress }: ChatListItemProp
   });
 
   return (
-    <Pressable onPress={onPress} className="flex-row items-center gap-3 px-3 ">
+    <Pressable
+      onPress={onPress}
+      testID="chat-item"
+      accessibilityLabel="chat-item"
+      className="flex-row items-center gap-3 px-3 ">
       <View className="py-4">
         {isGroup ? (
           <GroupAvatar avatars={avatars} />
@@ -55,7 +59,7 @@ export default function ChatListItem({ chat, userId, onPress }: ChatListItemProp
           </Avatar>
         )}
       </View>
-      <View className="h-full flex-1 border-b border-gray-100 pt-4">
+      <View className="flex-1 h-full pt-4 border-b border-gray-100">
         <View className="flex-row items-center justify-between">
           <Text className="text-base font-medium text-foreground">
             {userName || 'Unknown User'}
